@@ -14,7 +14,8 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color:gray;
+    background-color:transparent;
+    font-family:sans-serif;
 }
 
 li {
@@ -23,7 +24,7 @@ li {
 
 li a {
     display: block;
-    color: white;
+    color: #282728;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
