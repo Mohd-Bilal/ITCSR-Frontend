@@ -1,0 +1,482 @@
+{
+    "mockup": {
+        "controls": {
+            "control": [
+                {
+                    "ID": "2",
+                    "typeID": "BrowserWindow",
+                    "zOrder": "0",
+                    "w": "981",
+                    "h": "608",
+                    "measuredW": "450",
+                    "measuredH": "400",
+                    "x": "0",
+                    "y": "0"
+                },
+                {
+                    "ID": "4",
+                    "typeID": "Title",
+                    "zOrder": "1",
+                    "measuredW": "381",
+                    "measuredH": "44",
+                    "x": "23",
+                    "y": "105",
+                    "properties": {
+                        "text": "CREATE PROPOSAL"
+                    }
+                },
+                {
+                    "ID": "5",
+                    "typeID": "TextInput",
+                    "zOrder": "2",
+                    "w": "276",
+                    "measuredW": "79",
+                    "measuredH": "27",
+                    "x": "420",
+                    "y": "212"
+                },
+                {
+                    "ID": "6",
+                    "typeID": "SubTitle",
+                    "zOrder": "3",
+                    "measuredW": "145",
+                    "measuredH": "28",
+                    "x": "171",
+                    "y": "212",
+                    "properties": {
+                        "text": "project name"
+                    }
+                },
+                {
+                    "ID": "7",
+                    "typeID": "SubTitle",
+                    "zOrder": "4",
+                    "measuredW": "226",
+                    "measuredH": "28",
+                    "x": "171",
+                    "y": "264",
+                    "properties": {
+                        "text": "principal investigator"
+                    }
+                },
+                {
+                    "ID": "10",
+                    "typeID": "Button",
+                    "zOrder": "5",
+                    "w": "122",
+                    "h": "44",
+                    "measuredW": "63",
+                    "measuredH": "27",
+                    "x": "476",
+                    "y": "256",
+                    "properties": {
+                        "text": "PI List"
+                    }
+                },
+                {
+                    "ID": "15",
+                    "typeID": "TitleWindow",
+                    "zOrder": "6",
+                    "measuredW": "450",
+                    "measuredH": "400",
+                    "x": "1181",
+                    "y": "125",
+                    "properties": {
+                        "text": "PI List"
+                    }
+                },
+                {
+                    "ID": "16",
+                    "typeID": "SubTitle",
+                    "zOrder": "7",
+                    "measuredW": "34",
+                    "measuredH": "28",
+                    "x": "1217",
+                    "y": "184",
+                    "properties": {
+                        "text": "CS"
+                    }
+                },
+                {
+                    "ID": "17",
+                    "typeID": "SubTitle",
+                    "zOrder": "8",
+                    "measuredW": "46",
+                    "measuredH": "28",
+                    "x": "1217",
+                    "y": "298",
+                    "properties": {
+                        "text": "EEE"
+                    }
+                },
+                {
+                    "ID": "18",
+                    "typeID": "SubTitle",
+                    "zOrder": "9",
+                    "measuredW": "35",
+                    "measuredH": "28",
+                    "x": "1217",
+                    "y": "416",
+                    "properties": {
+                        "text": "ME"
+                    }
+                },
+                {
+                    "ID": "19",
+                    "typeID": "HRule",
+                    "zOrder": "10",
+                    "measuredW": "100",
+                    "measuredH": "10",
+                    "x": "1217",
+                    "y": "212"
+                },
+                {
+                    "ID": "20",
+                    "typeID": "HRule",
+                    "zOrder": "11",
+                    "measuredW": "100",
+                    "measuredH": "10",
+                    "x": "1217",
+                    "y": "320"
+                },
+                {
+                    "ID": "22",
+                    "typeID": "HRule",
+                    "zOrder": "12",
+                    "measuredW": "100",
+                    "measuredH": "10",
+                    "x": "1217",
+                    "y": "444"
+                },
+                {
+                    "ID": "23",
+                    "typeID": "Label",
+                    "zOrder": "13",
+                    "measuredW": "80",
+                    "measuredH": "21",
+                    "x": "1217",
+                    "y": "334",
+                    "properties": {
+                        "text": "Sasidharan M"
+                    }
+                },
+                {
+                    "ID": "24",
+                    "typeID": "Label",
+                    "zOrder": "14",
+                    "measuredW": "44",
+                    "measuredH": "21",
+                    "x": "1217",
+                    "y": "222",
+                    "properties": {
+                        "text": "Nikhil V"
+                    }
+                },
+                {
+                    "ID": "26",
+                    "typeID": "Label",
+                    "zOrder": "15",
+                    "measuredW": "80",
+                    "measuredH": "21",
+                    "x": "1217",
+                    "y": "243",
+                    "properties": {
+                        "text": "Sasidharan M"
+                    }
+                },
+                {
+                    "ID": "27",
+                    "typeID": "Label",
+                    "zOrder": "16",
+                    "measuredW": "44",
+                    "measuredH": "21",
+                    "x": "1217",
+                    "y": "355",
+                    "properties": {
+                        "text": "Nikhil V"
+                    }
+                },
+                {
+                    "ID": "55",
+                    "typeID": "SubTitle",
+                    "zOrder": "17",
+                    "w": "57",
+                    "measuredW": "34",
+                    "measuredH": "28",
+                    "x": "1426",
+                    "y": "184",
+                    "properties": {
+                        "text": "CS"
+                    }
+                },
+                {
+                    "ID": "56",
+                    "typeID": "SubTitle",
+                    "zOrder": "18",
+                    "w": "77",
+                    "measuredW": "46",
+                    "measuredH": "28",
+                    "x": "1426",
+                    "y": "298",
+                    "properties": {
+                        "text": "EEE"
+                    }
+                },
+                {
+                    "ID": "57",
+                    "typeID": "SubTitle",
+                    "zOrder": "19",
+                    "w": "59",
+                    "measuredW": "35",
+                    "measuredH": "28",
+                    "x": "1426",
+                    "y": "416",
+                    "properties": {
+                        "text": "ME"
+                    }
+                },
+                {
+                    "ID": "58",
+                    "typeID": "HRule",
+                    "zOrder": "20",
+                    "w": "168",
+                    "measuredW": "100",
+                    "measuredH": "10",
+                    "x": "1426",
+                    "y": "212"
+                },
+                {
+                    "ID": "59",
+                    "typeID": "HRule",
+                    "zOrder": "21",
+                    "w": "168",
+                    "measuredW": "100",
+                    "measuredH": "10",
+                    "x": "1426",
+                    "y": "444"
+                },
+                {
+                    "ID": "60",
+                    "typeID": "Label",
+                    "zOrder": "22",
+                    "w": "134",
+                    "measuredW": "80",
+                    "measuredH": "21",
+                    "x": "1426",
+                    "y": "334",
+                    "properties": {
+                        "text": "Sasidharan M"
+                    }
+                },
+                {
+                    "ID": "61",
+                    "typeID": "Label",
+                    "zOrder": "23",
+                    "w": "74",
+                    "measuredW": "44",
+                    "measuredH": "21",
+                    "x": "1426",
+                    "y": "222",
+                    "properties": {
+                        "text": "Nikhil V"
+                    }
+                },
+                {
+                    "ID": "62",
+                    "typeID": "Label",
+                    "zOrder": "24",
+                    "w": "134",
+                    "measuredW": "80",
+                    "measuredH": "21",
+                    "x": "1426",
+                    "y": "243",
+                    "properties": {
+                        "text": "Sasidharan M"
+                    }
+                },
+                {
+                    "ID": "63",
+                    "typeID": "Label",
+                    "zOrder": "25",
+                    "w": "74",
+                    "measuredW": "44",
+                    "measuredH": "21",
+                    "x": "1426",
+                    "y": "355",
+                    "properties": {
+                        "text": "Nikhil V"
+                    }
+                },
+                {
+                    "ID": "64",
+                    "typeID": "HRule",
+                    "zOrder": "26",
+                    "measuredW": "100",
+                    "measuredH": "10",
+                    "x": "1426",
+                    "y": "320"
+                },
+                {
+                    "ID": "65",
+                    "typeID": "Label",
+                    "zOrder": "27",
+                    "w": "352",
+                    "measuredW": "172",
+                    "measuredH": "21",
+                    "x": "1201",
+                    "y": "504",
+                    "properties": {
+                        "text": "Select one PI from the above"
+                    }
+                },
+                {
+                    "ID": "66",
+                    "typeID": "Alert",
+                    "zOrder": "28",
+                    "measuredW": "200",
+                    "measuredH": "102",
+                    "x": "1732",
+                    "y": "253",
+                    "properties": {
+                        "text": "Alert\nConfirm PI\nNo, Yes"
+                    }
+                },
+                {
+                    "ID": "67",
+                    "typeID": "Arrow",
+                    "zOrder": "29",
+                    "w": "442",
+                    "h": "9",
+                    "measuredW": "150",
+                    "measuredH": "100",
+                    "x": "712",
+                    "y": "291",
+                    "properties": {
+                        "p0": {
+                            "x": 0,
+                            "y": 9.223995618282473
+                        },
+                        "p1": {
+                            "x": 0.5632456497356843,
+                            "y": -0.0033776037322542497
+                        },
+                        "p2": {
+                            "x": 442.1592064111801,
+                            "y": 0
+                        },
+                        "shape": "bezier",
+                        "curvature": "0",
+                        "direction": "top"
+                    }
+                },
+                {
+                    "ID": "68",
+                    "typeID": "Arrow",
+                    "zOrder": "30",
+                    "w": "89",
+                    "h": "5",
+                    "measuredW": "150",
+                    "measuredH": "100",
+                    "x": "1637",
+                    "y": "301",
+                    "properties": {
+                        "p0": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "p1": {
+                            "x": 0.5632456497356843,
+                            "y": -0.0033776037322542454
+                        },
+                        "p2": {
+                            "x": 89.31247005807336,
+                            "y": 5.303852068980916
+                        },
+                        "shape": "bezier",
+                        "curvature": "0",
+                        "direction": "top"
+                    }
+                },
+                {
+                    "ID": "69",
+                    "typeID": "DateChooser",
+                    "zOrder": "31",
+                    "measuredW": "90",
+                    "measuredH": "25",
+                    "x": "492",
+                    "y": "332"
+                },
+                {
+                    "ID": "70",
+                    "typeID": "SubTitle",
+                    "zOrder": "32",
+                    "measuredW": "178",
+                    "measuredH": "28",
+                    "x": "171",
+                    "y": "320",
+                    "properties": {
+                        "text": "Date of approval"
+                    }
+                },
+                {
+                    "ID": "71",
+                    "typeID": "DatePicker",
+                    "zOrder": "33",
+                    "w": "178",
+                    "h": "202",
+                    "measuredW": "320",
+                    "measuredH": "473",
+                    "x": "750",
+                    "y": "348"
+                },
+                {
+                    "ID": "73",
+                    "typeID": "Arrow",
+                    "zOrder": "34",
+                    "w": "138",
+                    "h": "42",
+                    "measuredW": "150",
+                    "measuredH": "100",
+                    "x": "606",
+                    "y": "345",
+                    "properties": {
+                        "p0": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "p1": {
+                            "x": 0.563245649735684,
+                            "y": -0.0033776037322542384
+                        },
+                        "p2": {
+                            "x": 138.20619219221788,
+                            "y": 42.287661210647855
+                        },
+                        "shape": "bezier",
+                        "curvature": "0",
+                        "direction": "top"
+                    }
+                },
+                {
+                    "ID": "74",
+                    "typeID": "Button",
+                    "zOrder": "35",
+                    "w": "275",
+                    "h": "65",
+                    "measuredW": "126",
+                    "measuredH": "27",
+                    "x": "420",
+                    "y": "397",
+                    "properties": {
+                        "text": "Confirm Proposal"
+                    }
+                }
+            ]
+        },
+        "mockupH": "608",
+        "mockupW": "1932",
+        "measuredW": "1932",
+        "measuredH": "608",
+        "version": "1.0"
+    }
+}
