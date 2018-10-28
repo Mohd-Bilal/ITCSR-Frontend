@@ -8,12 +8,7 @@
         <hr>
         <div class="piDiv">
             <p style="display:inline-block;">Principal Investigator : </p>
-            <button  style="
-            margin-left:2vw;
-            width:8vw;height:4vh;
-            display:inline-block;
-            "
-            >Select PI</button><br><br>
+            <button id="button" style="margin-left:2vw;width:8vw;height:4vh;display:inline-block;" @click="fetchPI">Select PI</button><br><br>
         </div>
         <p style="margin-top:0px;">Project description :</p>
         <textarea rows="7" cols="50">Project about...</textarea><br><br>
@@ -30,3 +25,27 @@
 
     </div>
 </template>
+<script>
+var PI;
+const btn = document.getElementById("button")
+
+export default {
+    data(){
+        return{
+            PI,btn
+        }
+    },
+    methods:{
+        fetchPI:function(){
+            const url = "http://localhost:3000/proposal/getAllPI"
+            window.axios({url:url,method:"POST"})
+            .then(function(result){
+                console.log(result)
+                this.PI = result
+            }).catch(function(err){
+                this.PI = "Error"                
+            })
+        }
+    }    
+}
+</script>

@@ -17,7 +17,7 @@ export default new Router({
     },
     {
       path: '/createProposal',
-      name: 'home',
+      name: 'createproposal',
       component: createProposal
     }
 
