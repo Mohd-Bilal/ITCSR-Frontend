@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import dashboard from './views/dashboard.vue'
+import createProposal from './views/createProposal.vue'
+
 
 Vue.use(Router)
 
@@ -13,6 +15,11 @@ export default new Router({
       name: 'home',
       component: dashboard
     },
+    {
+      path: '/createProposal',
+      name: 'home',
+      component: createProposal
+    }
 
   ]
 })

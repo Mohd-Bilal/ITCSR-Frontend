@@ -22,7 +22,7 @@
     </div>
 </template>
 <style>
-.form{
+/* .form{
   width:60vw;
   background-color:#900C3F;
   margin:auto;
@@ -58,7 +58,7 @@ label{
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   text-decoration: none;
 }
-
+ */
 
 </style>
 <script>
