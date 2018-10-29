@@ -35,7 +35,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <span @click="spanFunc" class="close">&times;</span>
-      <h2>Modal Header</h2>
+      <h2>Principal Investigators list</h2><hr>
     </div>
     <div class="modal-body" >
        <li v-for="Pi in Pis" :key="Pi.people_id">
@@ -43,7 +43,7 @@
        </li>
     </div>
     <div class="modal-footer">
-      <h3>Modal Footer</h3>
+      <h3>Select the PI from above</h3>
     </div>
   </div>
 
@@ -69,8 +69,8 @@
 /* Modal Content/Box */
 .modal-header {
   padding: 2px 16px;
-  background-color: #5cb85c;
-  color: white;
+  background-color: white ;
+  color: black;
 }
 
 /* Modal Body */
