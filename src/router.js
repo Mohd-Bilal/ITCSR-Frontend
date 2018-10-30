@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import dashboard from './views/dashboard.vue'
 import createProposal from './views/createProposal.vue'
-
+import addHead from './views/addHead.vue'
 
 Vue.use(Router)
 
@@ -19,6 +19,11 @@ export default new Router({
       path: '/createProposal',
       name: 'createproposal',
       component: createProposal
+    },
+    {
+      path: '/headsUnderProject',
+      name: 'headsUnderProject',
+      component: addHead
     }
 
   ]
