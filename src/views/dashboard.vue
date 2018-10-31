@@ -1,6 +1,6 @@
 <template>
     <div>
-    <navbar></navbar>
+    <!-- <navbar></navbar> -->
     <div class="form">
     <label>Project Id</label><br>
     <input v-model="projectId" type="text"><br>

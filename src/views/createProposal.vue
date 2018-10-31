@@ -3,12 +3,12 @@
      <h1 style="padding-left:20%;">Create Proposal</h1>
      <div style="padding-left:22%;padding-right:22%;">
         <h3>Project name</h3>
-        <input type="text" name="firstname"><br><br>
-        <p>Date of approval :</p> <input type="date" name="Date of approval"><br><br>
+        <input v-model="name" type="text" name="name"><br><br>
+        <p>Date of approval :</p> <input v-model="date" type="date" name="Date of approval"><br><br>
         <hr>
         <div class="piDiv">
-            <p style="display:inline-block;">Principal Investigator : </p>
-            <button id="btn" @click="test" style="
+            <p style="display:inline-block;">Principal Investigator : </p><p id="piname"></p>
+            <button id="btn" @click="fetchAllPI" style="
             margin-left:2vw;
             width:8vw;height:4vh;
             display:inline-block;
@@ -16,11 +16,12 @@
             >Select PI</button><br><br>
         </div>
         <p style="margin-top:0px;">Project description :</p>
-        <textarea rows="7" cols="50">Project about...</textarea><br><br>
+        <textarea rows="7" cols="50" v-model="description">Project about...</textarea><br><br>
         <hr>
         
         <div>
-          <p>I hereby state that the above data is valid.</p><button style="
+          <p>I hereby state that the above data is valid.</p>
+          <button @click="submitProposal" submitstyle="
             margin-top:10px;
             width:14vw;height:5vh;
             display:inline-block;
@@ -28,28 +29,33 @@
         </div>
      </div>
 
-<!-- The Modal -->
-<div id="myModal" class="modal">
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
 
   <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <span @click="spanFunc" class="close">&times;</span>
-      <h2>Principal Investigators list</h2><hr>
-    </div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <span @click="closeModal" class="close">&times;</span>
+        <h2>Principal Investigators list</h2><hr>
+      </div>
+
     <div class="modal-body" >
-       <li v-for="Pi in Pis" :key="Pi.people_id">
-          {{Pi.name}}
-       </li>
+      <ul>
+        <li @click="selectedPI(Pi.people_id,Pi.name)" v-for="Pi in Pis" :key="Pi.people_id">
+            {{Pi.name}}
+        </li>
+       </ul>
     </div>
+
     <div class="modal-footer">
       <h3>Select the PI from above</h3>
     </div>
-  </div>
-
-</div>
 
     </div>
+
+  </div>
+
+  </div>
 </template>
 
 <style>
@@ -69,7 +75,7 @@
 /* Modal Content/Box */
 .modal-header {
   padding: 2px 16px;
-  background-color: white ;
+  background-color: white;
   color: black;
 }
 
@@ -96,6 +102,11 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   animation-name: animatetop;
   animation-duration: 0.4s;
+}
+
+#piname {
+  visibility: hidden;
+  display: inline-block;
 }
 
 /* Add Animation */
@@ -127,20 +138,24 @@
 </style>
 
 <script>
-var Pis, items;
+var Pis, items, name, date, piid, description;
 export default {
   data() {
     return {
-      Pis
+      Pis,
+      name,
+      date,
+      piid,
+      description
     };
   },
   //   mounted() {
   //     console.log(document.getElementById("btn"));
   //   },
   methods: {
-    test() {
+    fetchAllPI() {
       // Get the modal
-      var self = this
+      var self = this;
       const url = "http://localhost:3000/proposal/getAllPI";
       window
         .axios({ url: url, method: "POST" })
@@ -149,9 +164,8 @@ export default {
           var modal = document.getElementById("myModal");
           var span = document.getElementsByClassName("close")[0];
 
-        
           modal.style.display = "block";
-     
+
           window.onclick = function(event) {
             if (event.target == modal) {
               modal.style.display = "none";
@@ -162,10 +176,42 @@ export default {
           Pis = "Error";
         });
     },
-    spanFunc() {
+    closeModal() {
       var modal = document.getElementById("myModal");
       var span = document.getElementsByClassName("close")[0];
       modal.style.display = "none";
+    },
+    selectedPI(id, name) {
+      document.getElementById("btn").innerHTML = "Change PI";
+      var modal = document.getElementById("myModal");
+      modal.style.display = "none";
+      var piname = document.getElementById("piname");
+      piname.innerHTML = name;
+      piname.style.visibility = "visible";
+      this.piid = id;
+    },
+    submitProposal() {
+      // validate()
+      var request = {};
+      // request.project_id = null;
+      request.principal_investigator_id = this.piid;
+      request.name = this.name;
+      request.data = {};
+      request.data.description = this.description;
+      request.start_date = this.date;
+      window
+        .axios({
+          url: "http://localhost:3000/proposal/create",
+          method: "POST",
+          data: request
+        })
+        .then(function(result) {
+          if (result.data.success) console.log("Success");
+          else console.log(result);
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
     }
   }
 };
