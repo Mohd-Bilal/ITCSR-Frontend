@@ -9,7 +9,7 @@
 
 
 <style>
-ul {
+/* ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -32,6 +32,6 @@ li a {
 
 /* Change the link color to #111 (black) on hover */
 /* li a:hover {
-    background-color: #;
-} */
+    background-color: #; */
+/* }  */
 </style>
