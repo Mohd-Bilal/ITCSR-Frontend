@@ -3,8 +3,8 @@
      <h1 style="padding-left:20%;">Create Proposal</h1>
      <div style="padding-left:22%;padding-right:22%;">
         <h3>Project name</h3>
-        <input v-model="name" type="text" name="name"><br><br>
-        <p>Date of approval :</p> <input v-model="date" type="date" name="Date of approval"><br><br>
+        <input v-model="name" type="text" name="name" required><br><br>
+        <p>Date of approval :</p> <input v-model="date" type="date" name="Date of approval" required><br><br>
         <hr>
         <div class="piDiv">
             <p style="display:inline-block;">Principal Investigator : </p><p id="piname"></p>
@@ -190,8 +190,16 @@ export default {
       piname.style.visibility = "visible";
       this.piid = id;
     },
+    validate(){
+      console.log("MAAAN");
+      if(this.piid&&this.name&&this.date){
+        return true;  }
+      else return false;
+    },
     submitProposal() {
-      // validate()
+      // console.log(this.piid+" "+this.name+" "+this.date);
+      var self = this
+      if(this.validate()){
       var request = {};
       // request.project_id = null;
       request.principal_investigator_id = this.piid;
@@ -206,12 +214,22 @@ export default {
           data: request
         })
         .then(function(result) {
-          if (result.data.success) console.log("Success");
+          if (result.data.success){ 
+            console.log("Success");
+            console.log(result.data);
+            self.$store.commit('setProjectID',result.data.status.project_id);
+            // console.log(self.$store.state.project_id)r
+            self.$router.push("/addHead");
+          }
           else console.log(result);
         })
         .catch(function(err) {
           console.log(err);
         });
+    }
+    else{
+      alert("fill'em up");
+    }
     }
   }
 };

@@ -21,8 +21,8 @@ export default new Router({
       component: createProposal
     },
     {
-      path: '/headsUnderProject',
-      name: 'headsUnderProject',
+      path: '/addHead',
+      name: 'addHead',
       component: addHead
     }
 
