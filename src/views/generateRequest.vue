@@ -2,11 +2,21 @@
     <div style="padding-left:22%;padding-right:22%;">
     <h1 style="padding-left:20%;">Submit a Request</h1>
      <div style="padding-left:22%;padding-right:22%;">
+         <div>
          <span>Project : </span>
          <select @click="fetchAllProjectsUnderPI" v-model="project_name"  >
   <option disabled value="">Please select one</option>
-  <option  v-for="project in projectsUnderPI" :key="project.project_id" >{{project.name}}</option>
+  <option @click="fetchHeadsUnderProject" v-for="head in headsUnderProject" :key="head.head_id" >{{head.name}}</option>
 </select>
+         </div>
+
+         <div>
+         <span>Head : </span>
+         <select  v-model="project_name"  >
+  <option disabled value="">Please select one</option>
+  <option @click="" v-for="project in projectsUnderPI" :key="project.project_id" >{{project.name}}</option>
+</select>
+         </div>
      </div>
     </div>
 </template>
@@ -40,7 +50,7 @@ export default {
             console.log(error);
             });
             },
-        selectHeadUnderProject(){
+        fetchHeadsUnderProject(){
             
             var self = this;
             self.projectID = 1;
