@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import dashboard from './views/dashboard.vue'
 import createProposal from './views/createProposal.vue'
 import addHead from './views/addHead.vue'
+import generateRequest from './views/generateRequest.vue'
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/addHead',
       name: 'addHead',
       component: addHead
+    },
+    {
+      path: '/makeRequest',
+      name: 'generateRequest',
+      component: generateRequest
     }
 
   ]

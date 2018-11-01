@@ -161,6 +161,7 @@ export default {
         .axios({ url: url, method: "POST" })
         .then(function(result) {
           self.Pis = result.data.data;
+          console.log(self.Pis)
           var modal = document.getElementById("myModal");
           var span = document.getElementsByClassName("close")[0];
 
