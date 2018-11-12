@@ -6,13 +6,65 @@
   <h3>Head:</h3><select @click="fetchAllHeads" v-model="selected"  >
   <option disabled value="">Please select one</option>
   <option @click="methodToRunOnSelect(head.head_id)" v-for="head in heads" :key="head.head_id" >{{head.name}}</option>
-
+  <option @click="displayModal">Add New Head</option>
   <!-- <option >B</option>  
   <option>C</option> -->
 </select>
 <input v-if="seen===true" v-model="fund" placeholder="Fund"/>
 <button v-if="seen===true" v-on:click="addhead">Add</button>
 </div>
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span @click="closeModal" class="close">&times;</span>
+        <h2>Add new Head</h2><hr>
+        <div>
+          <input type="text" v-model="headName" placeholder="Head name">
+          <input type="text" placeholder="description" v-model="description">
+            <table class="table">
+              <thead>
+                  <tr>
+                      <td><strong>Parameter Name</strong></td>
+                      <td></td>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr v-for="(row, index) in rows">
+
+                      <td><input type="text" v-model="row.parameter"></td>
+                      <td>
+                          <a v-on:click="removeElement(index);" style="cursor: pointer">Remove</a>
+                      </td>
+
+
+                  </tr>
+              </tbody>
+          </table>
+          
+          <div>
+              <button class="button btn-primary" @click="addRow">Add row</button>
+          </div>
+          <button @click="saveNewHead">Save</button>
+        </div>
+      </div>
+
+    <div class="modal-body" >
+      <ul>
+        <!-- <li @click="selectedPI(Pi.people_id,Pi.name)" v-for="Pi in Pis" :key="Pi.people_id">
+            {{Pi.name}}
+        </li> -->
+       </ul>
+    </div>
+
+    <div class="modal-footer">
+      <h3>Select the PI from above</h3>
+    </div>
+
+    </div>
+
+  </div>
 <ul class="heads">
   <li v-for="added_head in added_heads" >{{added_head.head}} {{added_head.fund}}</li>
 </ul>
@@ -53,7 +105,7 @@
 </style>
 <script>
 //import dropdown from 'vue-dropdowns';l
-var selected,fund,selected_id,heads,added_heads=[];
+var selected,fund,selected_id,heads,added_heads=[],rows=[],headName,description;
 export default {
   data() {
     return {
@@ -62,7 +114,10 @@ export default {
       selected,
       selected_id,
       heads,
-      added_heads
+      added_heads,
+      rows:[],
+      description,
+      headName
       // heads: [{id:1,name:"Mach"},{id:2,name:"Trave"},{id:3,name:"manpowe"}]
     };
   },
@@ -134,6 +189,71 @@ export default {
       } else {
         alert("fill'em up");
       }
+    },
+    displayModal(){
+      var modal = document.getElementById("myModal");
+      modal.style.display = "block";
+    },
+    closeModal(){
+       var modal = document.getElementById("myModal");
+      modal.style.display = "none";
+      console.log(this.rows[0].parameter)
+    },
+    addRow: function() {
+                    var elem = document.createElement('tr');
+                    this.rows.push({
+                        parameter: "",
+                        
+                    });
+                },
+    removeElement: function(index) {
+        this.rows.splice(index, 1);
+    },
+    saveNewHead() {
+      this.closeModal();
+      console.log(this.headName);
+      console.log(this.description);
+      console.log(this.rows[0].parameter);
+      var newHead={}
+      var parameters=[];
+      var self= this;
+      const url = "http://localhost:3000/heads/create"
+      newHead.name = this.headName;
+      newHead.remark = this.description;
+      window
+        .axios({ url: url, method: "POST",data:newHead })
+       
+        .then(function(res){
+               
+            console.log(res.data.Status.head_id)
+            console.log(self.rows)
+            var count = 1;
+            self.rows.forEach(row=>{
+              var params = new Object();
+              console.log("y not this")
+              params.head_id = res.data.Status.head_id;
+              params.parameter_id = count;
+              params.parameter_name = row.parameter;
+              parameters.push(params);
+              count++;
+            })        
+        })
+        .then(()=>{
+          console.log(parameters);
+          var params = {parameters:parameters}
+          const url = "http://localhost:3000/parametersUnderHeads/bulk"
+          return window
+            .axios({url:url,method:"POST",data:params});   
+        })
+        .then(function(result2){
+          console.log("Keri haha");
+          console.log(result2);
+        })
+
+        
+        .catch(err=>{
+            console.log("kerilla")
+        })
     }
   }
 };
