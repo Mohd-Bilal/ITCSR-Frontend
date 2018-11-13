@@ -4,6 +4,8 @@ import dashboard from './views/dashboard.vue'
 import createProposal from './views/createProposal.vue'
 import addHead from './views/addHead.vue'
 import generateRequest from './views/generateRequest.vue'
+import requestDashboard from './views/requestDashboard.vue'
+
 import file from './views/file.vue'
 
 
@@ -32,6 +34,11 @@ export default new Router({
       path: '/makeRequest',
       name: 'generateRequest',
       component: generateRequest
+    },
+    {
+      path: '/requestDashboard',
+      name: 'requestDashboard',
+      component: requestDashboard
     },
     {
       path: '/file',

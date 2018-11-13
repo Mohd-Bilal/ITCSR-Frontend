@@ -78,16 +78,7 @@ export default {
           console.log(result);
 
           self.heads = result.data.Status;
-          // var modal = document.getElementById("myModal");
-          // var span = document.getElementsByClassName("close")[0];
-
-          // modal.style.display = "block";
-
-          // window.onclick = function(event) {
-          //   if (event.target == modal) {
-          //     modal.style.display = "none";
-          //   }
-          // };
+          
         })
         .catch(function(err) {
           // Pis = "Error";
@@ -106,8 +97,8 @@ export default {
       var self = this;
       if (this.validate()) {
         var request = {};
-        request.project_id = 10;
-        // request.project_id = self.$store.state.project_id;
+        // request.project_id = 10;
+        request.project_id = self.$store.state.project_id;
         request.head_id = this.selected_id;
         request.fund = this.fund;
         console.log(request);
