@@ -72,29 +72,28 @@
 </template>
 
 <style>
-#dropdownDiv{
-  margin-top:10%;
-
+#dropdownDiv {
+  margin-top: 10%;
 }
 
-#dropdownDiv select{
-  margin-left:1vw;
+#dropdownDiv select {
+  margin-left: 1vw;
 }
-#dropdownDiv h1{
+#dropdownDiv h1 {
   text-align: left;
 }
 
-#dropdownDiv h3{
-  display:inline-block;
+#dropdownDiv h3 {
+  display: inline-block;
   margin-left: 7vw;
 }
-.heads{
-  padding-left:8vw;
+.heads {
+  padding-left: 8vw;
   text-align: left;
 }
 
-.heads li{
-  font-size:20px;
+.heads li {
+  font-size: 20px;
 }
 
 #central {
@@ -105,7 +104,14 @@
 </style>
 <script>
 //import dropdown from 'vue-dropdowns';l
-var selected,fund,selected_id,heads,added_heads=[],rows=[],headName,description;
+var selected,
+  fund,
+  selected_id,
+  heads,
+  added_heads = [],
+  rows = [],
+  headName,
+  description;
 export default {
   data() {
     return {
@@ -115,7 +121,7 @@ export default {
       selected_id,
       heads,
       added_heads,
-      rows:[],
+      rows: [],
       description,
       headName
       // heads: [{id:1,name:"Mach"},{id:2,name:"Trave"},{id:3,name:"manpowe"}]
@@ -133,20 +139,21 @@ export default {
           console.log(result);
 
           self.heads = result.data.Status;
-          
         })
         .catch(function(err) {
           // Pis = "Error";
         });
     },
     methodToRunOnSelect(head_id) {
-      console.log(head_id)
+      console.log(head_id);
       this.selected_id = head_id;
       this.seen = true;
     },
-    validate(){
-      return (this.selected && this.fund);
-        
+    validate() {
+      if (this.$store.state.project_id === -1) {
+        return false; //
+      }
+      return this.selected && this.fund;
     },
     addhead() {
       var self = this;
@@ -167,86 +174,73 @@ export default {
             if (result.data.success) {
               console.log("Success");
               console.log(self.selected);
-              console.log(self.fund)
-              self.added_heads.push({"head":self.selected,"fund":self.fund})
+              console.log(self.fund);
+              self.added_heads.push({ head: self.selected, fund: self.fund });
               console.log(self.added_heads[0].head);
               console.log("evide");
-            }
-            else console.log(result);
+            } else console.log(result);
           })
           .catch(function(err) {
             console.log(err);
           });
       } else {
-        alert("fill'em up");
+        alert("fill'em up OR project_id NULL");
       }
     },
-    displayModal(){
+    displayModal() {
       var modal = document.getElementById("myModal");
       modal.style.display = "block";
     },
-    closeModal(){
-       var modal = document.getElementById("myModal");
+    closeModal() {
+      var modal = document.getElementById("myModal");
       modal.style.display = "none";
-      console.log(this.rows[0].parameter)
+      console.log(this.rows[0].parameter);
     },
     addRow: function() {
-                    var elem = document.createElement('tr');
-                    this.rows.push({
-                        parameter: "",
-                        
-                    });
-                },
+      var elem = document.createElement("tr");
+      this.rows.push({
+        parameter: ""
+      });
+    },
     removeElement: function(index) {
-        this.rows.splice(index, 1);
+      this.rows.splice(index, 1);
     },
     saveNewHead() {
       this.closeModal();
-      console.log(this.headName);
-      console.log(this.description);
-      console.log(this.rows[0].parameter);
-      var newHead={}
-      var parameters=[];
-      var self= this;
-      const url = "http://localhost:3000/heads/create"
+      console.log("Head name:"+this.headName);
+      console.log("Head description:"+this.description);
+      
+      const url = "http://localhost:3000/heads/createWithParameters";
+      var self = this;
+      var info = {};
+      var newHead = {};
+      var parameters = [];
       newHead.name = this.headName;
       newHead.remark = this.description;
-      window
-        .axios({ url: url, method: "POST",data:newHead })
-       
-        .then(function(res){
-               
-            console.log(res.data.Status.head_id)
-            console.log(self.rows)
-            var count = 1;
-            self.rows.forEach(row=>{
-              var params = new Object();
-              console.log("y not this")
-              params.head_id = res.data.Status.head_id;
-              params.parameter_id = count;
-              params.parameter_name = row.parameter;
-              parameters.push(params);
-              count++;
-            })        
-        })
-        .then(()=>{
-          console.log(parameters);
-          var params = {parameters:parameters}
-          const url = "http://localhost:3000/parametersUnderHeads/bulk"
-          return window
-            .axios({url:url,method:"POST",data:params});   
-        })
-        .then(function(result2){
-          console.log("Keri haha");
-          console.log(result2);
-        })
+      info["head_info"] = newHead;
+      
+      var count = 1;
+      self.rows.forEach(row => {
+        var params = new Object();
+        // params.head_id = res.data.Status.head_id; done at backend
+        params.parameter_id = count;
+        params.parameter_name = row.parameter;
+        parameters.push(params);
+        count++;
+      });
 
-        
-        .catch(err=>{
-            console.log("kerilla")
+      console.log("parameters:"+parameters);
+      info["parameter_info"] = parameters;
+      
+      window
+        .axios({ url: url, method: "POST", data: info })
+        .then(function(res) {
+          console.log("Successfully added heads and parameters");
         })
+        .catch(err => {
+          console.log("error:" + err);
+        });
     }
   }
 };
 </script>
-

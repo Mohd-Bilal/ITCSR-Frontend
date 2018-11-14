@@ -32,6 +32,17 @@
 </template>
 
 <style>
+table{
+  margin-top:5vh;
+  width:90%;
+}
+th{
+  font-size: 18px;
+}
+
+tr{
+  text-align: center;
+}
 /* #dropdownDiv{
   margin-top:10%;
 
