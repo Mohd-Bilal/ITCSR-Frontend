@@ -3,13 +3,16 @@
 <div id="dropdownDiv">
   <h1>Add Heads</h1>
   <hr>
-  <h3>Head:</h3><select @click="fetchAllHeads" v-model="selected"  >
+  <h3>Head:</h3>
+  <!-- <div @click="methodToRunOnSelect()"> -->
+  <select @click="methodToRunOnSelect()" v-model="selected"  >
   <option disabled value="">Please select one</option>
-  <option @click="methodToRunOnSelect(head.head_id)" v-for="head in heads" :key="head.head_id" >{{head.name}}</option>
-  <option @click="displayModal">Add New Head</option>
+  <option :value="head" v-for="head in heads" :key="head.head_id" >{{head.name}}</option>
+  <option @click="displayModal" value=-1>Add New Head</option>
   <!-- <option >B</option>  
   <option>C</option> -->
-</select>
+  </select>
+  <!-- </div> -->
 <input v-if="seen===true" v-model="fund" placeholder="Fund"/>
 <button v-if="seen===true" v-on:click="addhead">Add</button>
 </div>
@@ -127,7 +130,9 @@ export default {
       // heads: [{id:1,name:"Mach"},{id:2,name:"Trave"},{id:3,name:"manpowe"}]
     };
   },
-
+  created(){
+    this.fetchAllHeads()
+  },
   methods: {
     fetchAllHeads() {
       // Get the modal
@@ -144,9 +149,9 @@ export default {
           // Pis = "Error";
         });
     },
-    methodToRunOnSelect(head_id) {
-      console.log(head_id);
-      this.selected_id = head_id;
+    methodToRunOnSelect() {
+      // console.log(this.selected.head_id)
+      // this.selected_id = this.selected.head_id;
       this.seen = true;
     },
     validate() {
@@ -161,7 +166,7 @@ export default {
         var request = {};
         // request.project_id = 10;
         request.project_id = self.$store.state.project_id;
-        request.head_id = this.selected_id;
+        request.head_id = self.selected.head_id;
         request.fund = this.fund;
         console.log(request);
         window
@@ -175,7 +180,7 @@ export default {
               console.log("Success");
               console.log(self.selected);
               console.log(self.fund);
-              self.added_heads.push({ head: self.selected, fund: self.fund });
+              self.added_heads.push({ head: self.selected.name, fund: self.fund });
               console.log(self.added_heads[0].head);
               console.log("evide");
             } else console.log(result);
