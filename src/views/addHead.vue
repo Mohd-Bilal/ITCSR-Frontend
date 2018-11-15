@@ -8,7 +8,7 @@
   <select @click="methodToRunOnSelect()" v-model="selected"  >
   <option disabled value="">Please select one</option>
   <option :value="head" v-for="head in heads" :key="head.head_id" >{{head.name}}</option>
-  <option @click="displayModal" value=-1>Add New Head</option>
+  <option value=-1>Add New Head</option>
   <!-- <option >B</option>  
   <option>C</option> -->
   </select>
@@ -150,9 +150,14 @@ export default {
         });
     },
     methodToRunOnSelect() {
-      // console.log(this.selected.head_id)
+      if(this.selected === "-1"){
+            var modal = document.getElementById("myModal");
+            // if(modal.style.display == "none")
+            modal.style.display = "block";
+      }else{
       // this.selected_id = this.selected.head_id;
-      this.seen = true;
+        this.seen = true;
+      }
     },
     validate() {
       if (this.$store.state.project_id === -1) {
@@ -169,6 +174,7 @@ export default {
         request.head_id = self.selected.head_id;
         request.fund = this.fund;
         console.log(request);
+        if(self.selected !== -1){
         window
           .axios({
             url: "http://localhost:3000/headsUnderProject/create",
@@ -188,6 +194,7 @@ export default {
           .catch(function(err) {
             console.log(err);
           });
+          }
       } else {
         alert("fill'em up OR project_id NULL");
       }
