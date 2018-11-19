@@ -47,10 +47,12 @@ export default {
             data: request
           })
           .then(function(result) {
-            console.log(result)
+            console.log(result.data)
             if (result.data.success) {
-              console.log("Successfully logged token" + JSON.stringify(result));
+              // console.log("Successfully logged token" + JSON.stringify(result.data));
               self.$store.commit("setAuthToken",result.data.token);
+              self.$store.commit("setPrivilege",result.data.privilege)
+              self.$store.commit("setUserId",result.data.user_id)
               // self.$router.push("/addHead");
             } else console.log(result.data.error);
           })

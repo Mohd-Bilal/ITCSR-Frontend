@@ -7,7 +7,9 @@ export default new Vuex.Store({
   state: {
     project_id:-1,
     request_id:-1,
-    token:null
+    token:null,
+    user_id:-1,
+    privilege:null
   },
   mutations: {
     setProjectID(state,projectId){
@@ -21,6 +23,12 @@ export default new Vuex.Store({
     setAuthToken(state,token){
       console.log("setting token: "+token);
       state.token = token;
+    },
+    setUserId(state,userId){
+      state.user_id = userId
+    },
+    setPrivilege(state,privilege){
+      state.privilege = privilege
     }
   },
   actions: {
