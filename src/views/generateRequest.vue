@@ -123,12 +123,14 @@ export default {
           return result;
         })
         .then(function(res) {
+          var token = self.$store.state.token;
+
           // console.log(self.head_ids);
           const url = "http://localhost:3000/heads/getMultipleHeads";
           return window.axios({
             url: url,
             method: "POST",
-            data: { head_ids: self.head_ids }
+            data: { head_ids: self.head_ids,"token":token }
           });
         })
         .then(function(res2) {

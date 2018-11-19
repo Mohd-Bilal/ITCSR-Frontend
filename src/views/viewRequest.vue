@@ -1,6 +1,8 @@
 <template>
-    <div style="margin-top:30px">
-        <div class="main">
+    <div style="margin-top:30px;margin-left:20%;width:50%">
+        <h1 >About request</h1>
+        <hr >
+         <div class="main">
             <span>File No : </span>
             <span>{{file_no}}</span>
         </div>
@@ -14,50 +16,41 @@
             <span>Principal Investigator : </span>
             <span>{{pi_name}}</span>
         </div>
-        <br>
-        <hr style="width:50%">
-        <p id="heading">About request</p>
         <div class="sub">
             <span>Head : </span>
             <span>{{head_name}}</span>
         </div>
         <div v-for="param in parameters" v-bind:key="param.parameter_id" class="sub">
-            <span>{{param.parameter_name}} -  </span>
-            <span>{{param.parameter_value}}</span>
+            <h3>{{param.parameter_name}} -  </h3>
+            <h4>{{param.parameter_value}}</h4>
         </div>
         <div class="sub">
-            <span>Total Estimate : </span>
-            <span>{{amount_request}}</span>
+            <h3>Total Estimate : </h3>
+            <h3>{{amount_request}}</h3>
         </div>
         <br><br>
-        <button class="btn" v-if="privilege === 'Principal Investigator'" style="margin-left:40%">APPROVE</button>
-        <button class="btn" v-if="privilege === 'Principal Investigator'" style="margin-left:5%">REJECT</button>
+        <button class="btn" v-if="privilege === 'Principal Investigator'" >APPROVE</button>
+        <button class="btn" v-if="privilege === 'Principal Investigator'" >REJECT</button>
     </div>
-</template>
+</template>e
+
 
 <style>
 .main{
-    font-size: 1.5em;
+    font-size: 20px;
     text-align: left;
-    margin-left: 40%;
-    line-height: 50%;
+    margin-left: 5%;
 
 }
 .sub{
-    font-size: 1.25em;
-    margin-left:40%;
+    margin-left:10%;
 }
-#heading{
-    text-align: center;
-    font-size: 1.3em;
-}
+
 .btn{
-    /* margin-left:45%; */
+    margin-left: 5%;
     display: inline-block;
-    border-radius: 3px;
-    /* width: 40px; */
-    /* width:20vw; */
     clear: both;
+    width:auto;
     text-align: center;
 }
 </style>
