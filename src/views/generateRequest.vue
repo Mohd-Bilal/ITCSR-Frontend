@@ -145,7 +145,7 @@ export default {
             request_options.head_id = this.selected_head_id;
             request_options.description = description;
             request_options.date = this.date;
-            request_options.approval_level = 0;
+            request_options.approval_level = 1;
             request_options.estimated_amount = this.fund;
             console.log(request_options);
             const url = "http://localhost:3000/request/create";
