@@ -139,7 +139,7 @@ export default {
       var self = this;
       const url = "http://localhost:3000/heads/getAll";
       window
-        .axios({ url: url, method: "GET" })
+        .axios({ url: url, method: "GET" , withCredentials:true})
         .then(function(result) {
           console.log(result);
 
@@ -181,7 +181,7 @@ export default {
               console.log(self.selected);
               console.log(self.fund);
               self.added_heads.push({ head: self.selected.name, fund: self.fund });
-              console.log(self.added_heads[0].head);
+              console.log(self.added_heads);
               console.log("evide");
             } else console.log(result);
           })
