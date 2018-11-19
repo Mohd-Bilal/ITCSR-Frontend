@@ -30,8 +30,8 @@
             <span>{{amount_request}}</span>
         </div>
         <br><br>
-        <button class="btn" style="margin-left:40%">APPROVE</button>
-        <button class="btn" style="margin-left:5%">REJECT</button>
+        <button class="btn" v-if="privilege === 'Principal Investigator'" style="margin-left:40%">APPROVE</button>
+        <button class="btn" v-if="privilege === 'Principal Investigator'" style="margin-left:5%">REJECT</button>
     </div>
 </template>
 
@@ -65,7 +65,7 @@
 
 <script>
 
-var file_no,pi_name,project_name,head_name,parameters=[],amount_request,project_id,head_id,pi_id;
+var file_no,pi_name,project_name,head_name,parameters=[],amount_request,project_id,head_id,pi_id,privilege;
 
 export default {
     data(){
@@ -75,7 +75,8 @@ export default {
             project_name,
             head_name,
             parameters:[],
-            amount_request
+            amount_request,
+            privilege
         }
     },
     methods:{
@@ -132,6 +133,7 @@ export default {
         }
     },
     created: function(){
+        this.privilege = this.$store.state.privilege
         this.requestData()
     }
 }

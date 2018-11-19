@@ -118,7 +118,7 @@ export default new Router({
         if(!store.state.token){
           next('/')
         }else{
-          if(store.state.privilege === "Clerk")
+          if(store.state.privilege === "Clerk"||store.state.privilege === "Principal Investigator")
             next();
           else {
             alert("Access denied");
