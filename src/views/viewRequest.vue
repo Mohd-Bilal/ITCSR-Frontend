@@ -79,7 +79,8 @@ export default {
         }
     },
     methods:{
-        callMe(){
+        requestData(){
+            var token = this.$store.state.token;
             var self = this;
             const request_options={};
             const request_id = this.$store.state.request_id;
@@ -87,56 +88,51 @@ export default {
             const url = "http://localhost:3000/request/getRequest";
             window.axios({ url: url, method: "POST",data:request_options })
             .then(res=>{
-                console.log("Ithu pwolikkum")
+                console.log("Got request data")
                 //console.log(res)
                 const request = res.data.status[0];
-                console.log(request);
-                console.log(request.description)
+                console.log("data:"+request);
+                // console.log(request.description)
                 self.parameters = request.description.parameter;
                 project_id = request.project_id;
                 self.amount_request = request.estimated_amount;
                 head_id = request.head_id
-                console.log(self.amount_request)
+                console.log("req amount:"+self.amount_request)
                 const url = "http://localhost:3000/proposal/findByID"
                 return window
                 .axios({url:url,method:"POST",data:{project_id:project_id}})
             })
             .then(result=>{
-                console.log(result);
-                console.log("Keriyallo")
-                console.log(result.data.Status[0].name)
-                // response = new Object();----->ithentha engane ``/
-                // response = result.data.Status[0]
-                // console.log(response.name)
+                console.log("Got Proposal data:"+result);
+                console.log("name:"+result.data.Status[0].name)
                 
                 self.file_no = result.data.Status[0].file_no;
                 self.project_name = result.data.Status[0].name;
                 pi_id = result.data.Status[0].principal_investigator_id;
-                // // console.log(this.project_name)
+
                 const url = "http://localhost:3000/people/findByID"
                 return window
                 .axios({url:url,method:"POST",data:{people_id:pi_id}})
             })
-            .then(re=>{
-                console.log("Keri");
-                self.pi_name = re.data.Status[0].name;
-               // console.log(re)
+            .then(pi_result=>{
+                console.log("Got PI data");
+                self.pi_name = pi_result.data.Status[0].name;
                 const url = "http://localhost:3000/heads/getMultipleHeads"
                 return window
-                .axios({url:url,method:"POST",data:{head_ids:[head_id]}})
+                .axios({url:url,method:"POST",data:{head_ids:[head_id],"token":token}})
             })
-            .then(ans=>{
-                console.log("keruuuu")
-                console.log(ans.data.Status[0].name)
-                self.head_name = ans.data.Status[0].name;
+            .then(head_data=>{
+                console.log("Got head data")
+                console.log(head_data.data.Status[0].name)
+                self.head_name = head_data.data.Status[0].name;
             })
             .catch(err=>{
-                console.log("Sheriyayilla")
+                console.log("Error:"+err);
             })
         }
     },
     created: function(){
-        this.callMe()
+        this.requestData()
     }
 }
 </script>

@@ -80,7 +80,7 @@ export default {
   methods: {
     fetchAllProjectsUnderPI() {
       //get PI id from vueex
-      this.PI = 2;
+      this.PI = 3;
       var self = this;
       const url = "http://localhost:3000/proposal/getAllProjectsUnderPI";
       window

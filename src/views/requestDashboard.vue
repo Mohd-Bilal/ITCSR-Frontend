@@ -25,7 +25,7 @@
     <td>{{request.date}}</td>
     <td>{{request.approval_level}}</td>
     <td>{{request.estimated_amount}}</td>
-    <td><button @click="viewRequest(request.request_id)">View Request</button></td>
+    <td><button id="btnViewReq" @click="viewRequest(request.request_id)">View Request</button></td>
   </tr>
 </table> 
 </div>
@@ -42,6 +42,10 @@ th{
 
 tr{
   text-align: center;
+}
+#btnViewReq{
+  width:110px;
+  height:4vh;
 }
 /* #dropdownDiv{
   margin-top:10%;
