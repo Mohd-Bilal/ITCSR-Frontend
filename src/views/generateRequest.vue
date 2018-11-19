@@ -181,7 +181,6 @@ export default {
           console.log("Add aayilla -_-");
         });
     },
-<<<<<<< HEAD
     methods:{
         fetchAllProjectsUnderPI(){
             //get PI id from vueex
@@ -297,27 +296,6 @@ export default {
                 console.log("error kitunilla-_-")
             })
         }
-=======
-    onChange(head_id) {
-      const options = {};
-      this.parameters = [];
-      var self = this;
-      options.head_id = head_id;
-      const url =
-        "http://localhost:3000/parametersUnderHeads/getParametersUnderHead";
-      window
-        .axios({ url: url, method: "POST", data: options })
-        .then(res => {
-          console.log("Parameters under Head retrieved");
-          console.log(res.data.Status);
-          res.data.Status.forEach(ele => {
-            self.parameters.push(ele);
-          });
-        })
-        .catch(err => {
-          console.log("error kitunilla-_-");
-        });
->>>>>>> c417e5780277cc7146eaa0b17d9dca5377ec8115
     }
   }
 };
