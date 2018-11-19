@@ -63,18 +63,18 @@ export default new Router({
       path: '/makeRequest',
       name: 'generateRequest',
       component: generateRequest,
-      beforeEnter:(to,from,next)=>{
-        if(!store.state.token){
-          next('/')
-        }else{
-          if(store.state.privilege === "Clerk")
-            next();
-          else {
-            alert("Access denied");
-            next('/')
-          }  
-        }
-        }
+      // beforeEnter:(to,from,next)=>{
+      //   if(!store.state.token){
+      //     next('/')
+      //   }else{
+      //     if(store.state.privilege === "Clerk")
+      //       next();
+      //     else {
+      //       alert("Access denied");
+      //       next('/')
+      //     }  
+      //   }
+      //   }
     },
     {
       path: '/requestDashboard',
