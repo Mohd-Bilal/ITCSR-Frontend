@@ -20,7 +20,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: dashboard
+      component: login
     },
     {
       path: '/createProposal',
