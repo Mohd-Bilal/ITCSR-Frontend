@@ -62,12 +62,9 @@ label{
 
 </style>
 <script>
-import navbar from "../components/navbar.vue";
+
 var projectId,fileNumber,principalInvestigatorId,projectName,data,startDate,duration;
 export default {
-  components: {
-    navbar
-  },
   data() {
     return {
       projectId,fileNumber,principalInvestigatorId,projectName,data,startDate,duration

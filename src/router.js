@@ -5,6 +5,7 @@ import createProposal from './views/createProposal.vue'
 import addHead from './views/addHead.vue'
 import generateRequest from './views/generateRequest.vue'
 import requestDashboard from './views/requestDashboard.vue'
+import login from './views/login.vue'
 import viewRequest from './views/viewRequest.vue'
 
 import file from './views/file.vue'
@@ -19,7 +20,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: dashboard
+      component: login
     },
     {
       path: '/createProposal',
@@ -40,6 +41,11 @@ export default new Router({
       path: '/requestDashboard',
       name: 'requestDashboard',
       component: requestDashboard
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login
     },
     {
       path: '/file',

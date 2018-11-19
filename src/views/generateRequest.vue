@@ -47,10 +47,20 @@
 </template>
 
 <script>
-var date,fund;
-var PI,projectsUnderPI,parameters=[],projectID,selected_project_id,description,project_name,headsUnderProject,head_name,head_ids,selected_head_id;
+var date, fund;
+var PI,
+  projectsUnderPI,
+  parameters = [],
+  projectID,
+  selected_project_id,
+  description,
+  project_name,
+  headsUnderProject,
+  head_name,
+  head_ids,
+  selected_head_id;
 export default {
-    data() {
+  data() {
     return {
       PI,
       projectsUnderPI,
@@ -59,14 +69,119 @@ export default {
       selected_project_id,
       headsUnderProject,
       head_name,
-      head_ids:[],
+      head_ids: [],
       selected_head_id,
       fund,
       description,
       date,
       parameters
-    }
+    };
+  },
+  methods: {
+    fetchAllProjectsUnderPI() {
+      //get PI id from vueex
+      this.PI = 2;
+      var self = this;
+      const url = "http://localhost:3000/proposal/getAllProjectsUnderPI";
+      window
+        .axios({ url: url, method: "POST", data: { PI_ID: self.PI } })
+        .then(function(result) {
+          self.projectsUnderPI = result.data.Status;
+
+          console.log(result.data.Status);
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
     },
+    fetchHeadsUnderProject() {
+      var self = this;
+      console.log("selected project  id");
+      console.log(self.selected_project_id);
+      var token = self.$store.state.token;
+      console.log("Token:"+token);
+
+      const url = "http://localhost:3000/headsUnderProject/getAll";
+      window
+        .axios({
+          url: url,
+          method: "POST",
+          data: { project_id: self.selected_project_id,"token":token }
+        })
+        .then(function(result) {
+          self.headsUnderProject = result.data.Status;
+          console.log(self.headsUnderProject);
+          console.log("fetched heads under project");
+          console.log(result.data.Status);
+          return self.headsUnderProject;
+        })
+        .then(function(result) {
+          self.head_ids = [];
+          result.forEach(ele => {
+            self.head_ids.push(ele.head_id);
+          });
+          console.log("head ids");
+          console.log(self.head_ids);
+          return result;
+        })
+        .then(function(res) {
+          // console.log(self.head_ids);
+          const url = "http://localhost:3000/heads/getMultipleHeads";
+          return window.axios({
+            url: url,
+            method: "POST",
+            data: { head_ids: self.head_ids,"token":token }
+          });
+        })
+        .then(function(res2) {
+          console.log("got heads");
+          self.headsUnderProject = res2.data.Status;
+          // res2.data.Status.forEach(row=>{
+          //     self.headsUnderProject.push(row.name);
+          // })
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    },
+    submitProposal() {
+      var description = {};
+      var param_info = [];
+      var request_options = {};
+      // request_options.request_id = 2;
+      this.parameters.forEach(param => {
+        var parameter = new Object();
+        parameter.parameter_id = param.parameter_id;
+        parameter.parameter_name = param.parameter_name;
+        parameter.parameter_value = param.value;
+        param_info.push(parameter);
+      });
+      description.parameter = param_info;
+      description.remark = this.description;
+      //console.log(description)
+      request_options.project_id = this.selected_project_id;
+      request_options.head_id = this.selected_head_id;
+      request_options.description = description;
+      request_options.date = this.date;
+      request_options.approval_level = 0;
+      request_options.estimated_amount = this.fund;
+      console.log(request_options);
+      const url = "http://localhost:3000/request/create";
+      window
+        .axios({ url: url, method: "POST", data: request_options })
+        .then(function(res) {
+          console.log(res);
+          if (res.data.success) {
+            console.log("Successfull addition");
+          } else {
+            console.log("error:" + res.data.error);
+          }
+        })
+        .catch(err => {
+          console.log("Add aayilla -_-");
+        });
+    },
+<<<<<<< HEAD
     methods:{
         fetchAllProjectsUnderPI(){
             //get PI id from vueex
@@ -182,6 +297,28 @@ export default {
                 console.log("error kitunilla-_-")
             })
         }
+=======
+    onChange(head_id) {
+      const options = {};
+      this.parameters = [];
+      var self = this;
+      options.head_id = head_id;
+      const url =
+        "http://localhost:3000/parametersUnderHeads/getParametersUnderHead";
+      window
+        .axios({ url: url, method: "POST", data: options })
+        .then(res => {
+          console.log("Parameters under Head retrieved");
+          console.log(res.data.Status);
+          res.data.Status.forEach(ele => {
+            self.parameters.push(ele);
+          });
+        })
+        .catch(err => {
+          console.log("error kitunilla-_-");
+        });
+>>>>>>> c417e5780277cc7146eaa0b17d9dca5377ec8115
     }
-}
+  }
+};
 </script>
