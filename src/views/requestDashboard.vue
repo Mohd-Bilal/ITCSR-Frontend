@@ -25,7 +25,7 @@
     <td>{{request.date}}</td>
     <td>{{request.approval_level}}</td>
     <td>{{request.estimated_amount}}</td>
-    
+    <td><button @click="viewRequest(request.request_id)">View Request</button></td>
   </tr>
 </table> 
 </div>
@@ -116,6 +116,15 @@ export default {
         .catch(function(err) {
 
     });
+    },
+    viewRequest(request_id){
+      var self = this;
+      console.log(request_id);
+      console.log("done")
+      self.$store.commit('setRequestID',request_id);
+      console.log(self.$store.state.request_id)
+      this.$router.push("/viewRequest");
+       
     }
     
   }

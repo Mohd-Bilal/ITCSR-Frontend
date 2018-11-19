@@ -5,6 +5,7 @@ import createProposal from './views/createProposal.vue'
 import addHead from './views/addHead.vue'
 import generateRequest from './views/generateRequest.vue'
 import requestDashboard from './views/requestDashboard.vue'
+import viewRequest from './views/viewRequest.vue'
 
 import file from './views/file.vue'
 
@@ -44,6 +45,11 @@ export default new Router({
       path: '/file',
       name: 'file',
       component: file
+    },
+    {
+      path: '/viewRequest',
+      name: 'viewRequest',
+      component: viewRequest
     }
     
 
