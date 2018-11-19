@@ -50,7 +50,8 @@ export default {
             console.log(result)
             if (result.data.success) {
               console.log("Successfully logged token" + JSON.stringify(result));
-              self.$router.push("/addHead");
+              self.$store.commit("setAuthToken",result.data.token);
+              // self.$router.push("/addHead");
             } else console.log(result.data.error);
           })
           .catch(function(err) {

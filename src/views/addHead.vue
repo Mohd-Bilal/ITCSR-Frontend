@@ -71,6 +71,7 @@
 <ul class="heads">
   <li v-for="added_head in added_heads" >{{added_head.head}} {{added_head.fund}}</li>
 </ul>
+<logout/>
 </div>
 </template>
 
@@ -107,6 +108,7 @@
 </style>
 <script>
 //import dropdown from 'vue-dropdowns';l
+import logout from '../components/logout_btn.vue'
 var selected,
   fund,
   selected_id,
@@ -133,13 +135,18 @@ export default {
   created(){
     this.fetchAllHeads()
   },
+  components:{
+    logout
+  },
   methods: {
     fetchAllHeads() {
       // Get the modal
       var self = this;
+      var token = self.$store.state.token;
       const url = "http://localhost:3000/heads/getAll";
+      console.log(token)
       window
-        .axios({ url: url, method: "GET" , withCredentials:true})
+        .axios({ url: url, method: "POST" ,data:{"token":token}})
         .then(function(result) {
           console.log(result);
 
