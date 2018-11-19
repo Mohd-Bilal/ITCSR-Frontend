@@ -6,7 +6,7 @@ import addHead from './views/addHead.vue'
 import generateRequest from './views/generateRequest.vue'
 import requestDashboard from './views/requestDashboard.vue'
 import viewRequest from './views/viewRequest.vue'
-
+import addUser from './views/addUser.vue'
 import file from './views/file.vue'
 
 
@@ -50,6 +50,11 @@ export default new Router({
       path: '/viewRequest',
       name: 'viewRequest',
       component: viewRequest
+    },
+    {
+      path:'/addUser',
+      name:'addUser',
+      component:addUser
     }
     
 
