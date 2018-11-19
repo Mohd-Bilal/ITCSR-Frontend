@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     project_id:-1,
-    request_id:-1
+    request_id:-1,
+    token:null
   },
   mutations: {
     setProjectID(state,projectId){
@@ -16,6 +17,10 @@ export default new Vuex.Store({
     setRequestID(state,requestID){
       console.log("HEllo"+requestID);
       state.request_id = requestID;
+    },
+    setAuthToken(state,token){
+      console.log("setting token: "+token);
+      state.token = token;
     }
   },
   actions: {

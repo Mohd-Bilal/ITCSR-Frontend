@@ -2,6 +2,5 @@ import axios from 'axios'
 window.axios = axios
 window.axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
-    'Access-Control-Allow-Origin': 'http://localhost:3000',
-    'withCredentials': true
+    'Access-Control-Allow-Origin': 'http://localhost:3000'
 }
