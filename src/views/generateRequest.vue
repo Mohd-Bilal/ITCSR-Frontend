@@ -13,12 +13,16 @@
         <br><br>
          <div>
          <span>Head : </span>
-         <select  @click="fetchHeadsUnderProject" v-model="selected_head_id"  >
+         <select  @click="fetchHeadsUnderProject" v-model="selected_head_id" @change="onChange(selected_head_id)" >
   <option disabled value="">Please select one</option>
  <option  v-for="head in headsUnderProject" :key="head.head_id" v-bind:value="head.head_id">{{head.name}}</option>
 </select>
          </div>
          <br><br>
+         <div v-for="param in parameters" v-bind:key="param.parameter_id">
+             <span>{{param.parameter_name}} : </span>
+             <input type="text" :v-bind="param.pa" v-model="param.value"/><br><br>
+         </div>
          <div>
              <p style="margin-top:0px;">Project description :</p>
         <textarea rows="7" cols="50" v-model="description">Project about...</textarea><br><br>
@@ -44,7 +48,7 @@
 
 <script>
 var date,fund;
-var PI,projectsUnderPI,projectID,selected_project_id,description,project_name,headsUnderProject,head_name,head_ids,selected_head_id;
+var PI,projectsUnderPI,parameters=[],projectID,selected_project_id,description,project_name,headsUnderProject,head_name,head_ids,selected_head_id;
 export default {
     data() {
     return {
@@ -59,7 +63,8 @@ export default {
       selected_head_id,
       fund,
       description,
-      date
+      date,
+      parameters
     }
     },
     methods:{
@@ -122,11 +127,23 @@ export default {
             });
             },
         submitProposal(){
+            var description={}
+            var param_info=[]
             var request_options={}
             // request_options.request_id = 2;
+            this.parameters.forEach(param=>{
+                var parameter = new Object();
+                parameter.parameter_id = param.parameter_id;
+                parameter.parameter_name = param.parameter_name;
+                parameter.parameter_value = param.value;
+                param_info.push(parameter);
+            });
+            description.parameter = param_info;
+            description.remark = this.description;
+            //console.log(description)
             request_options.project_id = this.selected_project_id;
             request_options.head_id = this.selected_head_id;
-            request_options.description = this.description;
+            request_options.description = description;
             request_options.date = this.date;
             request_options.approval_level = 0;
             request_options.estimated_amount = this.fund;
@@ -146,9 +163,25 @@ export default {
             .catch(err=>{
                 console.log("Add aayilla -_-")
             })
+        },
+        onChange(head_id){
+            const options={}
+            this.parameters=[];
+            var self = this;
+            options.head_id = head_id;
+            const url = "http://localhost:3000/parametersUnderHeads/getParametersUnderHead"
+            window.axios({ url: url, method: "POST" ,data:options})
+            .then(res=>{
+                 console.log("Parameters under Head retrieved")
+                console.log(res.data.Status);
+                res.data.Status.forEach(ele=>{
+                    self.parameters.push(ele)
+                })
+            })
+            .catch(err=>{
+                console.log("error kitunilla-_-")
+            })
         }
-        
-       
     }
 }
 </script>
