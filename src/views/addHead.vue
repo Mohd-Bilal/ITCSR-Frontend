@@ -73,7 +73,9 @@
 <ul class="heads">
   <li v-for="added_head in added_heads" >{{added_head.head}} {{added_head.fund}}</li>
 </ul>
-
+<button @click="routeRequest">
+  Save
+</button>
 </div>
 </template>
 
@@ -141,6 +143,9 @@ export default {
     logout
   },
   methods: {
+    routeRequest(){
+      this.$router.push('/requestdashboard')
+    },
     fetchAllHeads() {
       // Get the modal
       var self = this;

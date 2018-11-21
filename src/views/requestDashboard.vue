@@ -1,11 +1,11 @@
 <template>
 <div id="central">
 <logout/>
-  <button id="btnMR" v-if="privilege ==='Principal Investigator' ">
-     <router-link to="/makeRequest">Make Request</router-link>
+  <button @click="routeMakeRequest" id="btnMR" v-if="privilege ==='Principal Investigator' ">
+  Make Request
   </button>
-  <button id="btnMR" v-if="privilege ==='Clerk' " >
-     <router-link to="/createProposal">Create Proposal</router-link>
+  <button @click="routeCreateProposal" id="btnMR" v-if="privilege ==='Clerk' " >
+    Create Proposal
   </button>
   
   <h1>Requests</h1>
@@ -131,7 +131,12 @@ export default {
     logout
   },
   methods: {
-
+    routeMakeRequest(){
+      this.$router.push('/makeRequest')
+    },
+    routeCreateProposal(){
+      this.$router.push('/createProposal')
+    },
     fetchAllRequests() {
       // Get the modal
       var self = this;

@@ -35,7 +35,7 @@
              <p>Request of fund</p><input v-model="fund" type="text" name="Fund" required><br><br>
          </div>
          <div>
-          <p>I hereby state that the above datayil thettukuttangal onnum illa.</p>
+          <p>I hereby state that the above data is valid </p>
           <button @click="submitProposal" submitstyle="
             margin-top:10px;
             width:14vw;height:5vh;
@@ -152,6 +152,7 @@ export default {
       var description = {};
       var param_info = [];
       var request_options = {};
+      var self = this
       // request_options.request_id = 2;
       this.parameters.forEach(param => {
         var parameter = new Object();
@@ -177,6 +178,7 @@ export default {
           console.log(res);
           if (res.data.success) {
             console.log("Successfull addition");
+            self.$router.push('/requestdashboard')
           } else {
             console.log("error:" + res.data.error);
           }
