@@ -34,7 +34,7 @@
             <h3>Total Estimate :{{amount_request}} </h3>
         </div>
         <br>
-        <button class="btn" v-if="privilege === 'Clerk'" id="btnApprove">APPROVE</button>
+        <button @click="approveProposal" class="btn" v-if="privilege === 'Clerk'" id="btnApprove">APPROVE</button>
         <button class="btn" v-if="privilege === 'Clerk'" id="btnReject">REJECT</button>
     </div>
 </template>
@@ -125,6 +125,27 @@ export default {
     };
   },
   methods: {
+    approveProposal(){
+      const self = this
+      const request_id = this.$store.state.request_id
+      const url = "http://localhost:3000/request/approveRequest";
+      window.axios({url:url,method:'POST',data:{"request_id":request_id}}).then(function(res){
+        console.log(JSON.stringify(res)+"hello")
+        if(res.data.success === true){
+          self.$router.push('/requestDashboard')
+        }else{
+          alert('Sorry couldnt update')
+          self.$router.push('/requestDashboard')
+
+        }
+      }).catch(function(err){
+          alert('Some error occured')
+            self.$router.push('/requestDashboard')
+
+      })
+
+      },
+    
     requestData() {
       var token = this.$store.state.token;
       var self = this;
