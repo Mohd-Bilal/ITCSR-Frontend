@@ -45,7 +45,11 @@
      </div>
     </div>
 </template>
-
+<style>
+textarea { 
+   /* will prevent resizing horizontally */
+   resize:vertical;
+}</style>
 <script>
 var date, fund;
 var PI,

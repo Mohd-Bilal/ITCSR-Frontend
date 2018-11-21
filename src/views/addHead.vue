@@ -1,5 +1,7 @@
 <template>
-<div id="central">
+<div id="centralAddDiv">
+<logout/>
+  
 <div id="dropdownDiv">
   <h1>Add Heads</h1>
   <hr>
@@ -71,7 +73,7 @@
 <ul class="heads">
   <li v-for="added_head in added_heads" >{{added_head.head}} {{added_head.fund}}</li>
 </ul>
-<logout/>
+
 </div>
 </template>
 
@@ -100,7 +102,7 @@
   font-size: 20px;
 }
 
-#central {
+#centralAddDiv {
   padding-left: 20%;
   padding-right: 20%;
   margin: 0 auto;

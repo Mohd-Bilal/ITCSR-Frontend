@@ -53,6 +53,7 @@ export default {
               self.$store.commit("setAuthToken",result.data.token);
               self.$store.commit("setPrivilege",result.data.privilege)
               self.$store.commit("setUserId",result.data.user_id)
+              self.$router.push('/requestDashboard')
               // self.$router.push("/addHead");
             } else console.log(result.data.error);
           })

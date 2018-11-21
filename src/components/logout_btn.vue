@@ -1,11 +1,14 @@
 <template>
- <button @click="logout">Logout</button>    
+ <button id="btnLogout" @click="logout">Logout</button>    
 </template>
 
 
 
 <style>
-button{
+#btnLogout{
+    position:absolute;
+    left:70%;
+    top:14%;
     width: 60px;
     height: 4vh;
 }

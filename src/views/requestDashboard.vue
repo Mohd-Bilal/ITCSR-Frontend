@@ -1,5 +1,13 @@
 <template>
 <div id="central">
+<logout/>
+  <button id="btnMR" v-if="privilege ==='Principal Investigator' ">
+     <router-link to="/makeRequest">Make Request</router-link>
+  </button>
+  <button id="btnMR" v-if="privilege ==='Clerk' " >
+     <router-link to="/createProposal">Create Proposal</router-link>
+  </button>
+  
   <h1>Requests</h1>
   <hr>
   <!-- <ul class="requests">
@@ -32,9 +40,22 @@
 </template>
 
 <style>
+#btnMR{
+  position: absolute;
+  left: 10%;
+  top:23%;
+  width:100px;
+  height: 40px;
+}
+
+#btnMR a{
+  text-decoration: none;
+  color:black;
+}
 table{
-  margin-top:5vh;
+  margin-top:3vh;
   width:90%;
+
 }
 th{
   font-size: 18px;
@@ -75,20 +96,24 @@ tr{
 #central {
   padding-left: 20%;
   padding-right: 20%;
-  padding-top: 5%;
+  padding-top: 4%;
   margin: 0 auto;
 }
 </style>
 <script>
-var person_id,request_list=[];
+import logout from '../components/logout_btn.vue'
+
+var person_id,request_list=[],privilege;
 export default {
   data() {
     return {
       person_id:1,
-      request_list
+      request_list,
+      privilege
     };
   },
   created:function(){
+    this.privilege = this.$store.state.privilege
      var self = this;
       const url = "http://localhost:3000/request/getAll";
       window
@@ -102,6 +127,8 @@ export default {
         .catch(function(err) {
 
     });
+  },components:{
+    logout
   },
   methods: {
 

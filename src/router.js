@@ -63,23 +63,6 @@ export default new Router({
       path: '/makeRequest',
       name: 'generateRequest',
       component: generateRequest,
-      // beforeEnter:(to,from,next)=>{
-      //   if(!store.state.token){
-      //     next('/')
-      //   }else{
-      //     if(store.state.privilege === "Clerk")
-      //       next();
-      //     else {
-      //       alert("Access denied");
-      //       next('/')
-      //     }  
-      //   }
-      //   }
-    },
-    {
-      path: '/requestDashboard',
-      name: 'requestDashboard',
-      component: requestDashboard,
       beforeEnter:(to,from,next)=>{
         if(!store.state.token){
           next('/')
@@ -94,6 +77,25 @@ export default new Router({
         }
     },
     {
+      path: '/requestDashboard',
+      name: 'requestDashboard',
+      component: requestDashboard,
+      beforeEnter:(to,from,next)=>{
+        if(!store.state.token){
+          next('/')
+        }
+        else{
+          // if(store.state.privilege === "Principal Investigator")
+          //   next();
+          // else {
+          //   alert("Access denied");
+          //   next('/')
+          // }  
+          next()
+        }
+        }
+    },
+    {
       path: '/file',
       name: 'file',
       component: file,
@@ -101,7 +103,7 @@ export default new Router({
         if(!store.state.token){
           next('/')
         }else{
-          if(store.state.privilege ==="Clerk")
+          if(store.state.privilege ==="Clerk"||store.state.privilege === "Privilege Investigator")
             next();
           else {
             alert("Access denied");
@@ -117,33 +119,35 @@ export default new Router({
       beforeEnter:(to,from,next)=>{
         if(!store.state.token){
           next('/')
-        }else{
-          if(store.state.privilege === "Clerk"||store.state.privilege === "Principal Investigator")
-            next();
-          else {
-            alert("Access denied");
-            next('/')
-          }  
         }
-        }
-    },
-    {
-      path:'/addUser',
-      name:'addUser',
-      component:addUser,
-      beforeEnter:(to,from,next)=>{
-        if(!store.state.token){
-          next('/')
-        }else{
-          if(store.state.privilege === "Clerk")
-            next();
-          else {
-            alert("Access denied");
-            next('/')
-          }  
+        else{
+          // if(store.state.privilege === "Clerk"||store.state.privilege === "Principal Investigator")
+          //   next();
+          // else {
+          //   alert("Access denied");
+          //   next('/')
+          // }  
+          next()
         }
         }
     }
+    // {
+    //   path:'/addUser',
+    //   name:'addUser',
+    //   component:addUser,
+    //   beforeEnter:(to,from,next)=>{
+    //     if(!store.state.token){
+    //       next('/')
+    //     }else{
+    //       if(store.state.privilege === "Clerk")
+    //         next();
+    //       else {
+    //         alert("Access denied");
+    //         next('/')
+    //       }  
+    //     }
+    //     }
+    // }
     
 
   ]
