@@ -1,48 +1,53 @@
 <template>
-    <div style="margin-top:30px;margin-left:20%;width:50%;">
-        <h1 >About request</h1>
-        <hr >
-         <div class="main">
-            <span>File No : </span>
-            <span>{{file_no}}</span>
-        </div>
-        <br>
-        <div class="main">
-            <span>Project : </span>
-            <span>{{project_name}}</span>
-        </div>
-        <br>
-        <div class="main">
-            <span>Principal Investigator : </span>
-            <span>{{pi_name}}</span>
-        </div>
-        <div class="row">
-            <div class="column remark">
-                <h2>Remark</h2>
-                <p>{{remark}}</p>
-            </div>
-            <div class="column summary">
-                <div class="sub">
-                    <h3>Head : {{head_name}}</h3>
-                </div>
-                <div v-for="param in parameters" v-bind:key="param.parameter_id" class="sub">
-                    <h3>{{param.parameter_name}} - {{param.parameter_value}}  </h3>
-                </div>  
-            </div>
-        </div>
-        <div id="estimate">
-            <h3>Total Estimate :{{amount_request}} </h3>
-        </div>
-        <br>
-        <button @click="approveProposal" class="btn" v-if="privilege === 'Clerk'" id="btnApprove">APPROVE</button>
-        <button class="btn" v-if="privilege === 'Clerk'" id="btnReject">REJECT</button>
+  <div style="margin-top:30px;margin-left:20%;width:50%;">
+    <h1>About request</h1>
+    <hr>
+    <div class="main">
+      <span>File No :</span>
+      <span>{{file_no}}</span>
     </div>
+    <br>
+    <div class="main">
+      <span>Project :</span>
+      <span>{{project_name}}</span>
+    </div>
+    <br>
+    <div class="main">
+      <span>Principal Investigator :</span>
+      <span>{{pi_name}}</span>
+    </div>
+    <div class="row">
+      <div class="column remark">
+        <h2>Remark</h2>
+        <p>{{remark}}</p>
+      </div>
+      <div class="column summary">
+        <div class="sub">
+          <h3>Head : {{head_name}}</h3>
+        </div>
+        <div v-for="param in parameters" v-bind:key="param.parameter_id" class="sub">
+          <h3>{{param.parameter_name}} - {{param.parameter_value}}</h3>
+        </div>
+      </div>
+    </div>
+    <div id="estimate">
+      <h3>Total Estimate :{{amount_request}}</h3>
+    </div>
+    <br>
+    <button
+      @click="approveProposal"
+      class="btn"
+      v-if="privilege === 'Clerk'"
+      id="btnApprove"
+    >APPROVE</button>
+    <button class="btn" v-if="privilege === 'Clerk'" id="btnReject" @click="rejectProposal">REJECT</button>
+  </div>
 </template>
 
 
 <style>
-.remark{
-    overflow: wrap;
+.remark {
+  overflow: wrap;
 }
 #btnApprove {
   background-color: #4caf50;
@@ -71,8 +76,8 @@
   width: 50%;
 }
 
-.column p{
-    word-break: break-word;
+.column p {
+  word-break: break-word;
 }
 .row {
   margin-left: 5%;
@@ -125,27 +130,46 @@ export default {
     };
   },
   methods: {
-    approveProposal(){
-      const self = this
-      const request_id = this.$store.state.request_id
+    approveProposal() {
+      const self = this;
+      const request_id = this.$store.state.request_id;
       const url = "http://localhost:3000/request/approveRequest";
-      window.axios({url:url,method:'POST',data:{"request_id":request_id}}).then(function(res){
-        console.log(JSON.stringify(res)+"hello")
-        if(res.data.success === true){
-          self.$router.push('/requestDashboard')
-        }else{
-          alert('Sorry couldnt update')
-          self.$router.push('/requestDashboard')
+      window
+        .axios({ url: url, method: "POST", data: { request_id: request_id } })
+        .then(function(res) {
+          console.log(JSON.stringify(res) + "hello");
+          if (res.data.success === true) {
+            self.$router.push("/requestDashboard");
+          } else {
+            alert("Sorry couldnt update");
+            self.$router.push("/requestDashboard");
+          }
+        })
+        .catch(function(err) {
+          alert("Some error occured");
+          self.$router.push("/requestDashboard");
+        });
+    },
+    rejectProposal() {
+      const self = this;
+      const request_id = this.$store.state.request_id;
+      const url = "http://localhost:3000/request/rejectRequest";
+      window
+        .axios({ url: url, method: "POST", data: { request_id: request_id } })
+        .then(function(res) {
+          console.log(JSON.stringify(res) + "hello");
+          if (res.data.success === true) self.$router.push("/requestDashboard");
+          else {
+            alert("Sorry couldnt update");
+            self.$router.push("/requestDashboard");
+          }
+        })
+        .catch(function(err) {
+          alert("Some error occured");
+          self.$router.push("/requestDashboard");
+        });
+    },
 
-        }
-      }).catch(function(err){
-          alert('Some error occured')
-            self.$router.push('/requestDashboard')
-
-      })
-
-      },
-    
     requestData() {
       var token = this.$store.state.token;
       var self = this;
