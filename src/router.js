@@ -9,6 +9,8 @@ import login from './views/login.vue'
 import viewRequest from './views/viewRequest.vue'
 import addUser from './views/addUser.vue'
 import file from './views/file.vue'
+import reqDashboardPI from './views/reqDashboardPI.vue'
+
 
 import  store  from './store'
 Vue.use(Router)
@@ -111,6 +113,11 @@ export default new Router({
           }  
         }
         }
+    },
+    {
+      path: '/reqDashboardPI',
+      name: 'reqDashboardPI',
+      component: reqDashboardPI
     },
     {
       path: '/viewRequest',
