@@ -85,7 +85,9 @@ export default {
   methods: {
     fetchAllProjectsUnderPI() {
       //get PI id from vueex
-      this.PI = 2;
+      this.PI = this.$store.state.user_id;
+
+      console.log(this.PI);
       var self = this;
       const url = "http://localhost:3000/proposal/getAllProjectsUnderPI";
       window
