@@ -20,6 +20,9 @@
         <hr>
         
         <div>
+          <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+        </div>
+        <div>
           <p>I hereby state that the above data is valid.</p>
           <button @click="submitProposal" submitstyle="
             margin-top:10px;
@@ -138,7 +141,7 @@
 </style>
 
 <script>
-var Pis, items, name, date, piid, description;
+var Pis, items, name, date, piid, description,file;
 export default {
   data() {
     return {
@@ -146,13 +149,21 @@ export default {
       name,
       date,
       piid,
-      description
+      description,
+      file
     };
   },
   //   mounted() {
   //     console.log(document.getElementById("btn"));
   //   },
   methods: {
+    handleFileUpload(){
+    this.file = this.$refs.file.files[0];
+    // console.log(this)
+    // console.log(this.$refs)
+    // console.log(this.$refs.file.files[0])
+    // console.log(this.file);
+  },
     fetchAllPI() {
       // Get the modal
       var self = this;
@@ -208,6 +219,15 @@ export default {
       request.data = {};
       request.data.description = this.description;
       request.start_date = this.date;
+      request.file = this.file;
+      let formData = new FormData();
+      console.log(self.file)
+      formData.append('file',self.file);
+//       formData.append('username', 'Chris'); 
+//       formData.append('request',request) 
+//       for (var p of formData) {
+//   console.log(p);
+// }
       window
         .axios({
           url: "http://localhost:3000/proposal/create",
@@ -217,10 +237,23 @@ export default {
         .then(function(result) {
           if (result.data.success){ 
             console.log("Success");
-            console.log(result.data);
+            window.axios({
+              url:"http://localhost:3000/file/",
+              method:'POST',
+              data:formData,
+              headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(
+              function(result2){
+                console.log("eviddddd")
+                  console.log(result.data);
             self.$store.commit('setProjectID',result.data.status.project_id);
             // console.log(self.$store.state.project_id)r
             self.$router.push("/addHead");
+              }
+            )
+            
           }
           else console.log(result);
         })
