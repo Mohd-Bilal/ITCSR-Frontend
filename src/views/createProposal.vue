@@ -1,63 +1,78 @@
 <template>
-   <div style="margin-top:10vh;">
-     <h1 style="padding-left:20%;">Create Proposal</h1>
-     <div style="padding-left:22%;padding-right:22%;">
-        <h3>Project name</h3>
-        <input v-model="name" type="text" name="name" required><br><br>
-        <p>Date of approval :</p> <input v-model="date" type="date" name="Date of approval" required><br><br>
-        <hr>
-        <div class="piDiv">
-            <p style="display:inline-block;">Principal Investigator : </p><p id="piname"></p>
-            <button id="btn" @click="fetchAllPI" style="
+  <div style="margin-top:10vh;">
+    <h1 style="padding-left:20%;">Create Proposal</h1>
+    <div style="padding-left:22%;padding-right:22%;">
+      <h3>Project name</h3>
+      <input v-model="name" type="text" name="name" required>
+      <br>
+      <br>
+      <p>Date of approval :</p>
+      <input v-model="date" type="date" name="Date of approval" required>
+      <br>
+      <br>
+      <hr>
+      <div class="piDiv">
+        <p style="display:inline-block;">Principal Investigator :</p>
+        <p id="piname"></p>
+        <button
+          id="btn"
+          @click="fetchAllPI"
+          style="
             margin-left:2vw;
             width:8vw;height:4vh;
             display:inline-block;
             "
-            >Select PI</button><br><br>
-        </div>
-        <p style="margin-top:0px;">Project description :</p>
-        <textarea rows="7" cols="50" v-model="description">Project about...</textarea><br><br>
-        <hr>
-        
-        <div>
-          <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
-        </div>
-        <div>
-          <p>I hereby state that the above data is valid.</p>
-          <button @click="submitProposal" submitstyle="
+        >Select PI</button>
+        <br>
+        <br>
+      </div>
+      <p style="margin-top:0px;">Project description :</p>
+      <textarea rows="7" cols="50" v-model="description">Project about...</textarea>
+      <br>
+      <br>
+      <hr>
+
+      <div>
+        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()" multiple>
+      </div>
+      <div>
+        <p>I hereby state that the above data is valid.</p>
+        <button
+          @click="submitProposal"
+          submitstyle="
             margin-top:10px;
             width:14vw;height:5vh;
             display:inline-block;
-            "> Submit</button>
-        </div>
-     </div>
-
-  <!-- The Modal -->
-  <div id="myModal" class="modal">
-
-  <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <span @click="closeModal" class="close">&times;</span>
-        <h2>Principal Investigators list</h2><hr>
+            "
+        >Submit</button>
       </div>
-
-    <div class="modal-body" >
-      <ul>
-        <li @click="selectedPI(Pi.people_id,Pi.name)" v-for="Pi in Pis" :key="Pi.people_id">
-            {{Pi.name}}
-        </li>
-       </ul>
     </div>
 
-    <div class="modal-footer">
-      <h3>Select the PI from above</h3>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <span @click="closeModal" class="close">&times;</span>
+          <h2>Principal Investigators list</h2>
+          <hr>
+        </div>
+
+        <div class="modal-body">
+          <ul>
+            <li
+              @click="selectedPI(Pi.people_id,Pi.name)"
+              v-for="Pi in Pis"
+              :key="Pi.people_id"
+            >{{Pi.name}}</li>
+          </ul>
+        </div>
+
+        <div class="modal-footer">
+          <h3>Select the PI from above</h3>
+        </div>
+      </div>
     </div>
-
-    </div>
-
-  </div>
-
   </div>
 </template>
 
@@ -141,7 +156,7 @@
 </style>
 
 <script>
-var Pis, items, name, date, piid, description,file;
+var Pis, items, name, date, piid, description, file;
 export default {
   data() {
     return {
@@ -157,13 +172,13 @@ export default {
   //     console.log(document.getElementById("btn"));
   //   },
   methods: {
-    handleFileUpload(){
-    this.file = this.$refs.file.files[0];
-    // console.log(this)
-    // console.log(this.$refs)
-    // console.log(this.$refs.file.files[0])
-    // console.log(this.file);
-  },
+    handleFileUpload() {
+      this.file = this.$refs.file.files;
+      // console.log(this)
+      // console.log(this.$refs)
+      // console.log(this.$refs.file.files[0])
+      // console.log(this.file);
+    },
     fetchAllPI() {
       // Get the modal
       var self = this;
@@ -172,7 +187,7 @@ export default {
         .axios({ url: url, method: "POST" })
         .then(function(result) {
           self.Pis = result.data.data;
-          console.log(self.Pis)
+          console.log(self.Pis);
           var modal = document.getElementById("myModal");
           var span = document.getElementsByClassName("close")[0];
 
@@ -202,68 +217,65 @@ export default {
       piname.style.visibility = "visible";
       this.piid = id;
     },
-    validate(){
+    validate() {
       console.log("MAAAN");
-      if(this.piid&&this.name&&this.date){
-        return true;  }
-      else return false;
+      if (this.piid && this.name && this.date) {
+        return true;
+      } else return false;
     },
     submitProposal() {
       // console.log(this.piid+" "+this.name+" "+this.date);
-      var self = this
-      if(this.validate()){
-      var request = {};
-      // request.project_id = null;
-      request.principal_investigator_id = this.piid;
-      request.name = this.name;
-      request.data = {};
-      request.data.description = this.description;
-      request.start_date = this.date;
-      request.file = this.file;
-      let formData = new FormData();
-      console.log(self.file)
-      formData.append('file',self.file);
-//       formData.append('username', 'Chris'); 
-//       formData.append('request',request) 
-//       for (var p of formData) {
-//   console.log(p);
-// }
-      window
-        .axios({
-          url: "http://localhost:3000/proposal/create",
-          method: "POST",
-          data: request
-        })
-        .then(function(result) {
-          if (result.data.success){ 
-            console.log("Success");
-            window.axios({
-              url:"http://localhost:3000/file/",
-              method:'POST',
-              data:formData,
-              headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then(
-              function(result2){
-                console.log("eviddddd")
+      var self = this;
+      if (this.validate()) {
+        var request = {};
+        request.principal_investigator_id = this.piid;
+        request.name = this.name;
+        request.data = {};
+        request.data.description = this.description;
+        request.start_date = this.date;
+        request.file = this.file;
+        let formData = new FormData();
+        formData.append("piid", this.piid);
+        // formData.append("filename",self.piid)
+        for (var i = 0; i < this.file.length; i++)
+          formData.append("file", this.file[i]);
+
+        window
+          .axios({
+            url: "http://localhost:3000/proposal/create",
+            method: "POST",
+            data: request
+          })
+          .then(function(result) {
+            if (result.data.success) {
+              console.log("Success");
+              window
+                .axios({
+                  url: "http://localhost:3000/file/",
+                  method: "POST",
+                  data: formData,
+                  headers: {
+                    "Content-Type": "multipart/form-data"
+                  }
+                })
+                .then(function(result2) {
+                  console.log("eviddddd");
                   console.log(result.data);
-            self.$store.commit('setProjectID',result.data.status.project_id);
-            // console.log(self.$store.state.project_id)r
-            self.$router.push("/addHead");
-              }
-            )
-            
-          }
-          else console.log(result);
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-    }
-    else{
-      alert("fill'em up");
-    }
+                  self.$store.commit(
+                    "setProjectID",
+                    result.data.status.project_id
+                  );
+                  // console.log(self.$store.state.project_id)r
+                  self.$router.push("/addHead");
+                });
+            } else console.log(result);
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
+      } else {
+        alert("fill'em up");
+      }
     }
   }
 };

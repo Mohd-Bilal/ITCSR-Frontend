@@ -165,7 +165,6 @@ export default {
       });
       description.parameter = param_info;
       description.remark = this.description;
-      //console.log(description)
       request_options.project_id = this.selected_project_id;
       request_options.head_id = this.selected_head_id;
       request_options.description = description;
